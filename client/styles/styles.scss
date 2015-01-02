@@ -57,6 +57,10 @@ body {
   p {
     font: 300 1.5em $font-stack;
   }
+  blockquote {
+    font: 300 1.3em $font-stack;
+    border-color: $red;
+  }
 }
 
 nav ul li:hover, nav ul li.active {
