@@ -12,7 +12,7 @@ Router.map ->
 
   @route "guide",
     path: "/guide"
-    controller: "AboutController"
+    controller: "GuideController"
 
   @route "rules",
     path: "/rules"
