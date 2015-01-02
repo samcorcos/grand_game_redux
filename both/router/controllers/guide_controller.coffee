@@ -1,5 +1,5 @@
-@AboutController = RouteController.extend(
-  template: "about"
+@GuideController = RouteController.extend(
+  template: "guide"
   yieldTemplates: {}
 
   #YIELD_TEMPLATES

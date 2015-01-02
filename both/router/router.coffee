@@ -10,8 +10,8 @@ Router.map ->
     path: "/"
     controller: "HomeController"
 
-  @route "about",
-    path: "/about"
+  @route "guide",
+    path: "/guide"
     controller: "AboutController"
 
   @route "rules",
