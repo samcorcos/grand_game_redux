@@ -148,8 +148,32 @@ background-color: lighten($blue, 10%);
   background-color: rgba(255,255,255,0.5);
 }
 
+// This will eventually use the table of contents from Materialize, and the Pushpin plugin from Materialize
 .rules-sidebar {
   min-height: 92vh;
   background-color: rgba(200,200,200,0.5);
   position: fixed;
+}
+
+.valign-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .valign {
+    display: block;
+  }
+}
+
+.home-card-1, .home-card-2, .home-card-3 {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+  margin: 1rem;
+}
+
+.show-card {
+  visibility:visible;
+  opacity:1;
+  transition-delay:0s;
 }
