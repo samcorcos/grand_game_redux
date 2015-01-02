@@ -1,3 +1,5 @@
-#Boilerplate Materialize
+The Grand Game v. 0.5.0
+==============
 
-Boilerplate Meteor 1.0 site with Materialize instead of Bootstrap
+##To do
+ 1.

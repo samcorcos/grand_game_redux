@@ -1,6 +1,11 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
 $font-stack: 'Open Sans', sans-serif;
 
+@import url(http://fonts.googleapis.com/css?family=Great+Vibes);
+$logo-font: 'Great Vibes', serif;
+
+$blue: #00237D;
+$red: #CF122A;
 
 .side-nav {
   margin-right: 10%;
@@ -21,6 +26,9 @@ nav {
   background-color: #000;
   overflow: hidden;
   height: 64px;
+  .brand-logo {
+    font: 300 2.5em $logo-font;
+  }
   a {
     font: 300 2em $font-stack;
     margin-top: 0.25em;
