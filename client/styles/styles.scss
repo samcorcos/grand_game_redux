@@ -23,7 +23,7 @@ $red: #CF122A;
 
 /* Navbar background color */
 nav {
-  background-color: #000;
+  background-color: $blue;
   overflow: hidden;
   height: 64px;
   .brand-logo {
