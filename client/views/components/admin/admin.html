@@ -1,0 +1,23 @@
+<template name="admin">
+
+  {{#if isAdmin}}
+    We will want to keep track of GDP
+  {{else}}
+    {{> loginForm}}
+  {{/if}}
+
+</template>
+
+
+<template name='loginForm'>
+  <div class="container">
+    <div class="row">
+      <div class="col s6">
+        <input type="text" id="username" placeholder="username">
+      </div>
+      <div class="col s6">
+        <input type="password" id="password" class="login-password" placeholder="password">
+      </div>
+    </div>
+  </div>
+</template>
