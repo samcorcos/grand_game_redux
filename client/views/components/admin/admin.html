@@ -1,7 +1,7 @@
 <template name="admin">
 
   {{#if isAdmin}}
-    We will want to keep track of GDP
+    {{> gdpSheet}}
   {{else}}
     {{> loginForm}}
   {{/if}}
@@ -20,4 +20,64 @@
       </div>
     </div>
   </div>
+</template>
+
+<template name="gdpSheet">
+  <!-- TODO Also needs to be publicly viewable -->
+  <h2 class="center-align">Butler GDP Sheet</h2>
+  <div class="container">
+    <table class="hoverable centered">
+      <thead>
+        <tr>
+          <th>Nation</th>
+          <th>Zone</th>
+          <th># Territories</th>
+          <th>Sea Zone</th>
+          <th>Initial GDP</th>
+          <th>Change GDP</th>
+          <th>SZ Loss</th>
+          <th>Part Control</th>
+          <th>Y/N Partial</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Patrick</td>
+          <td>1A27</td>
+          <td>3</td>
+          <td>N/A</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0.5</td>
+          <td>N</td>
+        </tr>
+        <tr>
+          <td>Patrick</td>
+          <td>1C27</td>
+          <td>3</td>
+          <td>N/A</td>
+          <td>20</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0.5</td>
+          <td>N</td>
+        </tr>
+        <tr>
+          <td>Patrick</td>
+          <td>1C25</td>
+          <td>3</td>
+          <td>N</td>
+          <td>10</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0.5</td>
+          <td>N</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TODO there will eventually be 68 rows -->
+
 </template>

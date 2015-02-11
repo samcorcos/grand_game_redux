@@ -1,6 +1,20 @@
 <template name="purchase">
   <div class="container">
     <h2 class="center-align">Unit Prices</h2>
+    <div>
+      <form>
+        <div class="row">
+          <div class="col s12 m6">
+            <label for="name">Player Name</label>
+            <input type="text" id="name">
+          </div>
+          <div class="col s12 m6">
+            <label for="gdp">Current GDP</label>
+            <input type="text" id="gdp">
+          </div>
+        </div>
+      </form>
+    </div>
     <table class="hoverable">
       <thead>
         <tr>
@@ -11,6 +25,12 @@
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td>Franc</td>
+          <td>1</td>
+          <td></td>
+          <td></td>
+        </tr>
         <tr>
           <td>Supply</td>
           <td>1</td>
@@ -90,12 +110,6 @@
           <td></td>
         </tr>
         <tr>
-          <td>Franc</td>
-          <td>1</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
           <td>GDP</td>
           <td>Variable...</td>
           <td></td>
@@ -104,7 +118,7 @@
       </tbody>
     </table>
     <div class="right-align">
-      <span>Current GDP ___________</span>
+
       <span>Total ____________</span>
     </div>
     <textarea style="margin:3rem 0;" placeholder="Additional Notes for the Butler"></textarea>
