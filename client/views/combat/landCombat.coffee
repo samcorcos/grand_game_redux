@@ -70,3 +70,129 @@ Template._landCombat.events
     ,
       $set:
         rockets: e.target.value
+
+  'change [id$="-pen1"]': (e,t) ->
+    if t.find('[id$="-pen1"]:checked')
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          pen1: true
+    else
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          pen1: false
+
+  'change [id$="-pen2"]': (e,t) ->
+    if t.find('[id$="-pen2"]:checked')
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          pen2: true
+    else
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          pen2: false
+
+  'change [id$="-md"]': (e,t) ->
+    if t.find('[id$="-md"]:checked')
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          md: true
+    else
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          md: false
+
+  'change [id$="-cd"]': (e,t) ->
+    if t.find('[id$="-cd"]:checked')
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          cd: true
+    else
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          cd: false
+
+  'change [id$="-bz"]': (e,t) ->
+    if t.find('[id$="-bz"]:checked')
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          bz: true
+    else
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          bz: false
+
+  'change [id$="-bd"]': (e,t) ->
+    if t.find('[id$="-bd"]:checked')
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          bd: true
+    else
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          bd: false
+
+  'change [id$="-hd"]': (e,t) ->
+    if t.find('[id$="-hd"]:checked')
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          hd: true
+    else
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          hd: false
+
+  'change [id$="-atmb"]': (e,t) ->
+    if t.find('[id$="-atmb"]:checked')
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          atmb: true
+    else
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          atmb: false
+
+  'change [id$="-wd"]': (e,t) ->
+    if t.find('[id$="-wd"]:checked')
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          wd: true
+    else
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          wd: false
