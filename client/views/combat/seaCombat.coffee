@@ -6,8 +6,7 @@ Template._seaCombat.rendered = ->
 Template._seaCombat.helpers
   seaCombatants: -> SeaCombat.find()
 
-  preSeaCombat: -> # Session.get 'seaStatus'
-    true
+  preSeaCombat: -> Session.get 'seaStatus'
 
   seaResults: -> Session.get 'seaResults'
   seaWinner: -> Session.get 'seaWinner'
@@ -149,32 +148,25 @@ Template._seaCombat.events
 
   casualtyArray = killsArray.reverse()
 
-  
+  unitsArray = []
+  combatants.forEach (c) ->
+    xArray = []
+    xArray.push unitCount("Air", c.air)
+    xArray.push unitCount("Supplied Submarines", c.sSubs)
+    xArray.push unitCount("Unsupplied Submarines", c.uSubs)
+    xArray.push unitCount("Supplied Lt. Fleets", c.sLtFleets)
+    xArray.push unitCount("Unsupplied Lt. Fleets", c.uLtFleets)
+    xArray.push unitCount("Supplied Hv. Fleets", c.sHvFleets)
+    xArray.push unitCount("Unsupplied Hv. Fleets", c.uHvFleets)
+    unitsArray.push _.flatten(xArray)
 
-#
-#   # Converts kills into casualties TODO only works with two combatants
-#   casualtyArray = killsArray.reverse()
-#
-#   unitsArray = [] # populates array of unit types
-#   combatants.forEach (c) ->
-#     xArray = []
-#     xArray.push unitCount("Air", c.air)
-#     xArray.push unitCount('Supplied Armor', c.sArm)
-#     xArray.push unitCount('Supplied Infantry', c.sInf)
-#     xArray.push unitCount('Supplied Res. Infantry', c.sResInf)
-#     xArray.push unitCount('Unsupplied Armor', c.uArm)
-#     xArray.push unitCount('Unsupplied Infantry', c.uInf)
-#     xArray.push unitCount('Unsupplied Res. Infantry', c.uResInf)
-#     xArray.push unitCount('Rocket', c.rockets)
-#     unitsArray.push _.flatten(xArray)
-#
-#   # shuffle and show losses
-#   i = 0
-#   lossesArray = []
-#   unitsArray.forEach (army) ->
-#     newArmy = _.shuffle(army)
-#     deaths = casualtyArray[i]
-#     casualties = newArmy.slice(0,deaths)
-#     lossesArray.push casualties
-#     i++
-#   lossesArray
+  #shuffle and show losses
+  i = 0
+  lossesArray = []
+  unitsArray.forEach (army) ->
+    newArmy = _.shuffle(army)
+    deaths = casualtyArray[i]
+    casualties = newArmy.slice(0,deaths)
+    lossesArray.push casualties
+    i++
+  lossesArray

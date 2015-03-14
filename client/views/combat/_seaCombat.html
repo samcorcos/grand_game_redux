@@ -53,12 +53,24 @@
       <div class="col s12 m6 offset-m3">
         <div class="card">
           <div class="card-content">
-            <p>Winner: {{landWinner}}</p>
+            <p>Winner: {{seaWinner}}</p>
           </div>
         </div>
       </div>
       {{#each seaResults}}
-
+        <div class="col s12 m6">
+          <div class="card">
+            <div class="card-content">
+              <p>Combatant: {{name}}</p>
+              <p>Casualties:</p>
+              <ul>
+                {{#each casualties}}
+                <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        </div>
 
       {{/each}}
     {{/if}}
@@ -67,28 +79,3 @@
     <button class="btn" id="submit-sea">Submit Sea Combat</button>
   </div>
 </template>
-
-<!-- {{else}}
-  <div class="col s12 m6 offset-m3">
-    <div class="card">
-      <div class="card-content">
-        <p>Winner: {{landWinner}}</p>
-      </div>
-    </div>
-  </div>
-  {{#each landResults}}
-    <div class="col s12 m6">
-      <div class="card">
-        <div class="card-content">
-          <p>Combatant: {{name}}</p>
-          <p>Casualties:</p>
-          <ul>
-            {{#each casualties}}
-              <li>{{this}}</li>
-            {{/each}}
-          </ul>
-        </div>
-      </div>
-    </div>
-  {{/each}}
-{{/if}} -->
