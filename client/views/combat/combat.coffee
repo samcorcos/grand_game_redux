@@ -28,7 +28,6 @@ Template.combat.helpers
   combatant: ->
     Combatant.find()
 
-
 @getWinnerIndex = (array) ->
   x = Math.random()
   res = 0
