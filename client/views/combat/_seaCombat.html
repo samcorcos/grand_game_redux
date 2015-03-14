@@ -6,32 +6,31 @@
           <div class="card">
             <div class="card-content">
               <form>
-                <input type="text" placeholder="Name">
+                <input type="text" id="name" placeholder="Name">
                 <h3 class="center-align">Units</h3>
                 <div class="row">
                   <div class="col s12">
-                    <input type="number" placeholder="# Aircraft">
+                    <input type="number" id="air" placeholder="Air Superiority">
                   </div>
                   <div class="col s6">
-                    <input type="number" placeholder="# Submarines">
+                    <input type="number" id="sSubs" placeholder="# Submarines">
                   </div>
                   <div class="col s6">
-                    <input type="number" placeholder="Unsupplied">
+                    <input type="number" id="uSubs" placeholder="Unsupplied">
                   </div>
                   <div class="col s6">
-                    <input type="number" placeholder="# Lt. Fleets">
+                    <input type="number" id="sLtFleets" placeholder="# Lt. Fleets">
                   </div>
                   <div class="col s6">
-                    <input type="number" placeholder="Unsupplied">
+                    <input type="number" id="uLtFleets" placeholder="Unsupplied">
                   </div>
                   <div class="col s6">
-                    <input type="number" placeholder="# Hv. Fleets">
+                    <input type="number" id="sHvFleets" placeholder="# Hv. Fleets">
                   </div>
                   <div class="col s6">
-                    <input type="number" placeholder="Unsupplied">
+                    <input type="number" id="uHvFleets" placeholder="Unsupplied">
                   </div>
                 </div>
-                <p><input type="checkbox"> Search</p>
               </form>
               <h3 class="center-align">Casualties</h3>
               <div>
@@ -51,7 +50,7 @@
         </div>
       {{/each}}
     {{else}}
-      {{#each seaResult}}
+      {{#each seaResults}}
 
       {{/each}}
     {{/if}}

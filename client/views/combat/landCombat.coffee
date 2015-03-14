@@ -4,8 +4,7 @@ Template._landCombat.rendered = ->
   LandCombat.insert {}
 
 Template._landCombat.helpers
-  landCombatants: ->
-    LandCombat.find()
+  landCombatants: -> LandCombat.find()
 
   preLandCombat: -> Session.get 'landStatus'
   landResults: -> Session.get 'landResults'
@@ -359,6 +358,7 @@ Template._landCombat.events
   combatants = LandCombat.find().fetch()
   winArray = getLandWinArray combatants
   winnerIndex = getWinnerIndex winArray
+  console.log winArray
   combatWinner = combatants[winnerIndex].name
   casualties = getLandCasualties combatants
   tempArray = []
@@ -367,7 +367,6 @@ Template._landCombat.events
     c.casualties = casualties[i]
     tempArray.push c
     i++
-  console.log tempArray
   Session.set 'landWinner', combatWinner
   Session.set 'landResults', tempArray
   Session.set 'landStatus', false
