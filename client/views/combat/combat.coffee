@@ -8,7 +8,21 @@ Template.combat.rendered = ->
   LandCombat.insert {}
   LandCombat.insert {}
 
-Template.combat.events {}
+Template.combat.events
+  'click #air-tab': (e,t) ->
+    Session.set 'airStatus', true
+    Session.set 'landStatus', false
+    Session.set 'seaStatus', false
+
+  'click #land-tab': (e,t) ->
+    Session.set 'airStatus', false
+    Session.set 'landStatus', true
+    Session.set 'seaStatus', false
+
+  'click #sea-tab': (e,t) ->
+    Session.set 'airStatus', false
+    Session.set 'landStatus', false
+    Session.set 'seaStatus', true
 
 Template.combat.helpers
   combatant: ->

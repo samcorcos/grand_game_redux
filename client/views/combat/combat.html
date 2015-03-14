@@ -1,9 +1,9 @@
 <template name="combat">
 <div class="container">
   <ul class="tabs" style="margin-top:2rem;">
-    <li class="tab col s4"><a href="#land">Land</a></li>
-    <li class="tab col s4"><a href="#sea">Sea</a></li>
-    <li class="tab col s4"><a href="#air">Air</a></li>
+    <li class="tab col s4" id="land-tab"><a href="#land">Land</a></li>
+    <li class="tab col s4" id="sea-tab"><a href="#sea">Sea</a></li>
+    <li class="tab col s4" id="air-tab"><a href="#air">Air</a></li>
   </ul>
   <div id="land">{{> _landCombat}}</div>
   <div id="sea">{{> _seaCombat}}</div>
@@ -14,125 +14,114 @@
 
 <template name="_landCombat">
   <div class="row">
-    {{#each landCombatants}}
-    <div class="col s12 m6">
-      <div class="card">
-        <div class="card-content">
-          <form>
-            <input type="text" id="name" placeholder="name">
-            <h3 class="center-align">Units</h3>
-            <div class="col s12">
-              <input type="number" id="air" placeholder="# Aircraft">
-            </div>
-            <div class="col s6">
-              <input type="number" id="s-res-inf" placeholder="# Res. Infantry">
-            </div>
-            <div class="col s6">
-              <input type="number" id="us-res-inf" placeholder="Unsupplied">
-            </div>
-            <div class="col s6">
-              <input type="number" id="s-inf" placeholder="# Infantry">
-            </div>
-            <div class="col s6">
-              <input type="number" id="un-inf" placeholder="Unsupplied">
-            </div>
-            <div class="col s6">
-              <input type="number" id="s-arm" placeholder="# Armor">
-            </div>
-            <div class="col s6">
-              <input type="number" id="un-arm" placeholder="Unsupplied">
-            </div>
-            <div class="col s12">
-              <input type="number" id="rockets" placeholder="Rockets">
-            </div>
-            <div class="col s10 left-align">
-              <input type="checkbox" id="{{_id}}-pen1">
-              <label class="checkbox-label" for="{{_id}}-pen1">Amphibious Assault Penalty</label>
-            </div>
-            <div class="col s2 right-align">
-              <span class="land-modifiers">(-1)</span>
-            </div>
-            <div class="col s10 left-align">
-              <input type="checkbox" id="{{_id}}-pen2">
-              <label class="checkbox-label" for="{{_id}}-pen2">River/Canal Crossing</label>
-            </div>
-            <div class="col s2 right-align">
-              <span class="land-modifiers">(-1)</span>
-            </div>
-            <div class="col s10 left-align">
-              <input type="checkbox" id="{{_id}}-md">
-              <label class="checkbox-label" for="{{_id}}-md">Mountain Defense</label>
-            </div>
-            <div class="col s2 right-align">
-              <span class="land-modifiers">(+10%)</span>
-            </div>
-            <div class="col s10 left-align">
-              <input type="checkbox" id="{{_id}}-cd">
-              <label class="checkbox-label" for="{{_id}}-cd">City/Port Defense</label>
-            </div>
-            <div class="col s2 right-align">
-              <span class="land-modifiers">(+10%)</span>
-            </div>
-            <div class="col s10 left-align">
-              <input type="checkbox" id="{{_id}}-bz">
-              <label class="checkbox-label" for="{{_id}}-bz">Blitz (Success)</label>
-            </div>
-            <div class="col s2 right-align">
-              <span class="land-modifiers">(x2)</span>
-            </div>
-            <div class="col s10 left-align">
-              <input type="checkbox" id="{{_id}}-bd">
-              <label class="checkbox-label" for="{{_id}}-bd">Blitz (Failure)</label>
-            </div>
-            <div class="col s2 right-align">
-              <span class="land-modifiers">(+25%)</span>
-            </div>
-            <div class="col s10 left-align">
-              <input type="checkbox" id="{{_id}}-hd">
-              <label class="checkbox-label" for="{{_id}}-hd">Hold Order</label>
-            </div>
-            <div class="col s2 right-align">
-              <span class="land-modifiers">(+25%)</span>
-            </div>
-            <div class="col s10 left-align">
-              <input type="checkbox" id="{{_id}}-atmb">
-              <label class="checkbox-label" for="{{_id}}-atmb">Atomic Bomb (Tactical)</label>
-            </div>
-            <div class="col s2 right-align">
-              <span class="land-modifiers">(+12)</span>
-            </div>
-            <div class="col s10 left-align">
-              <input type="checkbox" id="{{_id}}-wd">
-              <label class="checkbox-label" for="{{_id}}-wd">Winter Defense</label>
-            </div>
-            <div class="col s2 right-align">
-              <span class="land-modifiers">(+5%)</span>
-            </div>
-            <div class="col s12">
-              <input type="number" placeholder="Change Base Points">
-            </div>
-          </form>
-          <h3 class="center-align">Casualties</h3>
-          <div>
-            Aircraft _________
-          </div>
-          <div>
-            Submarines _________
-          </div>
-          <div>
-            Lt. Fleets _________
-          </div>
-          <div>
-            Hv. Fleets _________
-          </div>
-          <h3 class="center-align">Winner</h3>
-          <div>
-            <p>Winner is _____</p>
+    {{#if preLandCombat}}
+      {{#each landCombatants}}
+      <div class="col s12 m6">
+        <div class="card">
+          <div class="card-content">
+            <form>
+              <input type="text" id="name" placeholder="name">
+              <h3 class="center-align">Units</h3>
+              <div class="col s12">
+                <input type="number" id="air" placeholder="# Aircraft">
+              </div>
+              <div class="col s6">
+                <input type="number" id="s-res-inf" placeholder="# Res. Infantry">
+              </div>
+              <div class="col s6">
+                <input type="number" id="us-res-inf" placeholder="Unsupplied">
+              </div>
+              <div class="col s6">
+                <input type="number" id="s-inf" placeholder="# Infantry">
+              </div>
+              <div class="col s6">
+                <input type="number" id="un-inf" placeholder="Unsupplied">
+              </div>
+              <div class="col s6">
+                <input type="number" id="s-arm" placeholder="# Armor">
+              </div>
+              <div class="col s6">
+                <input type="number" id="un-arm" placeholder="Unsupplied">
+              </div>
+              <div class="col s12">
+                <input type="number" id="rockets" placeholder="Rockets">
+              </div>
+              <div class="col s10 left-align">
+                <input type="checkbox" id="{{_id}}-pen1">
+                <label class="checkbox-label" for="{{_id}}-pen1">Amphibious Assault Penalty</label>
+              </div>
+              <div class="col s2 right-align">
+                <span class="land-modifiers">(-1)</span>
+              </div>
+              <div class="col s10 left-align">
+                <input type="checkbox" id="{{_id}}-pen2">
+                <label class="checkbox-label" for="{{_id}}-pen2">River/Canal Crossing</label>
+              </div>
+              <div class="col s2 right-align">
+                <span class="land-modifiers">(-1)</span>
+              </div>
+              <div class="col s10 left-align">
+                <input type="checkbox" id="{{_id}}-md">
+                <label class="checkbox-label" for="{{_id}}-md">Mountain Defense</label>
+              </div>
+              <div class="col s2 right-align">
+                <span class="land-modifiers">(+10%)</span>
+              </div>
+              <div class="col s10 left-align">
+                <input type="checkbox" id="{{_id}}-cd">
+                <label class="checkbox-label" for="{{_id}}-cd">City/Port Defense</label>
+              </div>
+              <div class="col s2 right-align">
+                <span class="land-modifiers">(+10%)</span>
+              </div>
+              <div class="col s10 left-align">
+                <input type="checkbox" id="{{_id}}-bz">
+                <label class="checkbox-label" for="{{_id}}-bz">Blitz (Success)</label>
+              </div>
+              <div class="col s2 right-align">
+                <span class="land-modifiers">(x2)</span>
+              </div>
+              <div class="col s10 left-align">
+                <input type="checkbox" id="{{_id}}-bd">
+                <label class="checkbox-label" for="{{_id}}-bd">Blitz (Failure)</label>
+              </div>
+              <div class="col s2 right-align">
+                <span class="land-modifiers">(+25%)</span>
+              </div>
+              <div class="col s10 left-align">
+                <input type="checkbox" id="{{_id}}-hd">
+                <label class="checkbox-label" for="{{_id}}-hd">Hold Order</label>
+              </div>
+              <div class="col s2 right-align">
+                <span class="land-modifiers">(+25%)</span>
+              </div>
+              <div class="col s10 left-align">
+                <input type="checkbox" id="{{_id}}-atmb">
+                <label class="checkbox-label" for="{{_id}}-atmb">Atomic Bomb (Tactical)</label>
+              </div>
+              <div class="col s2 right-align">
+                <span class="land-modifiers">(+12)</span>
+              </div>
+              <div class="col s10 left-align">
+                <input type="checkbox" id="{{_id}}-wd">
+                <label class="checkbox-label" for="{{_id}}-wd">Winter Defense</label>
+              </div>
+              <div class="col s2 right-align">
+                <span class="land-modifiers">(+5%)</span>
+              </div>
+              <div class="col s12">
+                <input type="number" placeholder="Change Base Points">
+              </div>
+            </form>
           </div>
         </div>
       </div>
-    </div>
-    {{/each}}
+      {{/each}}
+    {{else}}
+      {{#each landResult}}
+
+      {{/each}}
+    {{/if}}
   </div>
 </template>
 
@@ -220,9 +209,9 @@
       {{/each}}
     {{/if}}
   </div>
-  <div class="left-align">
-    <button class="btn" id="add-air">+ Add Combatant</button>
-  </div>
+<!--   <div class="left-align">
+  <button class="btn" id="add-air">+ Add Combatant</button>
+</div> -->
   <div class="right-align">
     <button class="btn" id="submit-air">Submit Air Combat</button>
   </div>

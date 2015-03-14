@@ -2,10 +2,14 @@ Template._landCombat.rendered = ->
   LandCombat.remove {}
   LandCombat.insert {}
   LandCombat.insert {}
+  Session.set 'landStatus', true
 
 Template._landCombat.helpers
   landCombatants: ->
     LandCombat.find()
+
+  preLandCombat: -> Session.get 'landStatus'
+  landResult: -> Session.get 'landResult'
 
 Template._landCombat.events
   'keyup #name': (e,t) ->

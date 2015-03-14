@@ -2,17 +2,14 @@ Template._airCombat.rendered = ->
   AirCombat.remove {}
   AirCombat.insert {}
   AirCombat.insert {}
-  Session.set 'airStatus', true
+  Session.set 'airStatus', false
 
 Template._airCombat.helpers
   airCombatants: ->
     AirCombat.find()
 
-  preAirCombat: ->
-    Session.get 'airStatus'
-
-  airResults: ->
-    Session.get 'airResults'
+  preAirCombat: -> Session.get 'airStatus'
+  airResults: -> Session.get 'airResults'
 
 Template._airCombat.events
   'keyup #name': (e,t) ->
