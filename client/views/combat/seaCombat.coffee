@@ -78,6 +78,7 @@ Template._seaCombat.events
   winnerName = combatants[winnerIndex].name
   Session.set 'seaWinner', winnerName
   console.log winArray
+  if !!winArray[0] == false then alert "ERROR"
   casualties = getSeaCasualties combatants
   tempArray = []
   i = 0

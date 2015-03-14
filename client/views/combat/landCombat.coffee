@@ -359,6 +359,7 @@ Template._landCombat.events
   winArray = getLandWinArray combatants
   winnerIndex = getWinnerIndex winArray
   console.log winArray
+  if !!winArray[0] == false then alert "ERROR"
   combatWinner = combatants[winnerIndex].name
   casualties = getLandCasualties combatants
   tempArray = []
