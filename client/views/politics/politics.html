@@ -1,3 +1,14 @@
 <template name="politics">
-
+<div class="container">
+  <div style="height:5rem;"></div>
+  <div class="center-align">
+    <button class="btn" id="politics">Roll!</button>
+    {{#if loading}}
+      {{> spinner}}
+    {{/if}}
+    {{#if rolled}}
+      <p>{{roll}}</p>
+    {{/if}}
+  </div>
+</div>
 </template>
