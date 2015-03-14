@@ -6,8 +6,17 @@
       <div class="col s12 m6">
         <div class="card">
           <div class="card-content">
+            <p>Be sure to fill out all values!</p>
             <form>
               <input type="text" id="name" placeholder="name">
+              <div class="col s6 center-align">
+                <input type="checkbox" id="{{_id}}-o">
+                <label for="{{_id}}-o" class="checkbox-label">Offense</label>
+              </div>
+              <div class="col s6 center-align">
+                <input type="checkbox" id="{{_id}}-d">
+                <label for="{{_id}}-d" class="checkbox-label">Defense</label>
+              </div>
               <h3 class="center-align">Units</h3>
               <div class="col s12">
                 <input type="number" id="air" placeholder="# Aircraft">

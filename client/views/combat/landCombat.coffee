@@ -205,6 +205,34 @@ Template._landCombat.events
         $set:
           wd: false
 
+  'change [id$="-o"]': (e,t) ->
+    if t.find('[id$="-o"]:checked')
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          o: true
+    else
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          o: false
+
+  'change [id$="-d"]': (e,t) ->
+    if t.find('[id$="-d"]:checked')
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          d: true
+    else
+      LandCombat.update
+        _id: @_id
+      ,
+        $set:
+          d: false
+
   'keyup #base-change': (e,t) ->
     LandCombat.update
       _id: @_id
@@ -212,29 +240,98 @@ Template._landCombat.events
       $set:
         base: e.target.value
 
+@getArmor = (c) ->
+  numArm = +c.sArm
+  result = undefined
+  if c.o
+    armStrength = 6
+    if c.pen1 then armStrength--
+    if c.pen2 then armStrength--
+    grossStrength = numArm * armStrength
+    if c.bz then grossStrength *= 2
+    if c.bd then grossStrength *= 1.25
+    if c.atmb then grossStrength += 12
+    result = grossStrength
+  else
+    armStrength = 6
+    if c.pen1 then armStrength--
+    if c.pen2 then armStrength--
+    grossStrength = numArm * armStrength
+    if c.md then grossStrength *= 1.1
+    if c.cd then grossStrength *= 1.1
+    if c.wd then grossStrength *= 1.05
+    if c.hd then grossStrength *= 1.25
+    result = grossStrength
+  if result then result else 0
+
+
+@getInfantry = (c) ->
+  result = undefined
+  if c.o
+    infStrength = 3
+    if c.pen1 then infStrength--
+    if c.pen2 then infStrength--
+    grossStrength = +c.sInf * infStrength
+    if c.atmb then grossStrength += 12
+    result = grossStrength
+  else
+    infStrength = 4
+    if c.pen1 then infStrength--
+    if c.pen2 then infStrength--
+    grossStrength = +c.sInf * infStrength
+    if c.md then grossStrength *= 1.1
+    if c.cd then grossStrength *= 1.1
+    if c.wd then grossStrength *= 1.05
+    if c.hd then grossStrength *= 1.25
+    result = grossStrength
+  if result then result else 0
+
+@getResInfantry = (c) ->
+  result = undefined
+  if c.o
+    resStrength = 2
+    if c.pen1 then resStrength--
+    if c.pen2 then resStrength--
+    grossStrength = +c.sResInf * resStrength
+    if c.atmb then grossStrength += 12
+    result = grossStrength
+  else
+    resStrength = 4
+    if c.pen1 then resStrength--
+    if c.pen2 then resStrength--
+    grossStrength = +c.sResInf * resStrength
+    if c.md then grossStrength *= 1.1
+    if c.cd then grossStrength *= 1.1
+    if c.wd then grossStrength *= 1.05
+    if c.hd then grossStrength *= 1.25
+    result = grossStrength
+  if result then result else 0
+
+
+
 @getLandWinArray = (combatants) ->
   strengthArray = []
   totalStrength = 0
-  combatants.forEach (combatant) ->
+  combatants.forEach (c) ->
     combatantStrength = 0
 
-    totalStrength += +combatant.air
-    totalStrength += +combatant.rockets
-    totalStrength += +combatant.sArm
-    totalStrength += +combatant.sInf
-    totalStrength += +combatant.sResInf
-    totalStrength += +combatant.uArm
-    totalStrength += +combatant.uInf
-    totalStrength += +combatant.uResInf
 
-    combatantStrength += +combatant.air
-    combatantStrength += +combatant.rockets
-    combatantStrength += +combatant.sArm
-    combatantStrength += +combatant.sInf
-    combatantStrength += +combatant.sResInf
-    combatantStrength += +combatant.uArm
-    combatantStrength += +combatant.uInf
-    combatantStrength += +combatant.uResInf
+    totalStrength += +c.air      # TODO what is "1/sup. pt."
+    totalStrength += getArmor(c)
+    totalStrength += getInfantry(c)
+    totalStrength += getResInfantry(c)
+    totalStrength += +c.uArm # TODO do unsupplied units get bonuses?
+    totalStrength += +c.uInf # TODO can a unit have less than 1 attack or defense? Negative?
+    totalStrength += +c.uResInf
+
+
+    combatantStrength += +c.air       # TODO what is "1/sup. pt."
+    combatantStrength += getArmor(c)
+    combatantStrength += getInfantry(c)
+    combatantStrength += getResInfantry(c)
+    combatantStrength += +c.uArm
+    combatantStrength += +c.uInf
+    combatantStrength += +c.uResInf
 
     strengthArray.push combatantStrength
 
@@ -243,7 +340,22 @@ Template._landCombat.events
     scaledArray.push(item/totalStrength)
   scaledArray
 
+@getLandCasualties = ->
+  
+
 @calculateLand = ->
   combatants = LandCombat.find().fetch()
   winArray = getLandWinArray combatants
-  console.log winArray
+  winnerIndex = getWinnerIndex winArray
+  combatWinner = combatants[winnerIndex].name
+  casualties = getLandCasualties combatants
+
+  tempArray = []
+  i = 0
+  combatants.forEach (combatant) ->
+    combatant.casualties = casualties[i]
+    tempArray.push combatant
+    i++
+
+  # Session.set 'landResults', tempArray
+  # Session.set 'landStatus', false
