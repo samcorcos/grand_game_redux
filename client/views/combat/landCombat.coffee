@@ -8,7 +8,8 @@ Template._landCombat.helpers
     LandCombat.find()
 
   preLandCombat: -> Session.get 'landStatus'
-  landResult: -> Session.get 'landResult'
+  landResults: -> Session.get 'landResults'
+  landWinner: -> Session.get 'landWinner'
 
 Template._landCombat.events
   'click #submit-land': (e,t) ->
@@ -307,6 +308,21 @@ Template._landCombat.events
     result = grossStrength
   if result then result else 0
 
+@getStrengthArray = (combatants) ->
+  strengthArray = []
+  combatants.forEach (c) ->
+    combatantStrength = 0
+
+    combatantStrength += +c.air       # TODO what is "1/sup. pt."
+    combatantStrength += getArmor(c)
+    combatantStrength += getInfantry(c)
+    combatantStrength += getResInfantry(c)
+    combatantStrength += +c.uArm
+    combatantStrength += +c.uInf
+    combatantStrength += +c.uResInf
+
+    strengthArray.push combatantStrength
+  strengthArray
 
 
 @getLandWinArray = (combatants) ->
@@ -314,7 +330,6 @@ Template._landCombat.events
   totalStrength = 0
   combatants.forEach (c) ->
     combatantStrength = 0
-
 
     totalStrength += +c.air      # TODO what is "1/sup. pt."
     totalStrength += getArmor(c)
@@ -340,22 +355,72 @@ Template._landCombat.events
     scaledArray.push(item/totalStrength)
   scaledArray
 
-@getLandCasualties = ->
-  
-
 @calculateLand = ->
   combatants = LandCombat.find().fetch()
   winArray = getLandWinArray combatants
   winnerIndex = getWinnerIndex winArray
   combatWinner = combatants[winnerIndex].name
   casualties = getLandCasualties combatants
-
   tempArray = []
   i = 0
-  combatants.forEach (combatant) ->
-    combatant.casualties = casualties[i]
-    tempArray.push combatant
+  combatants.forEach (c) ->
+    c.casualties = casualties[i]
+    tempArray.push c
+    i++
+  console.log tempArray
+  Session.set 'landWinner', combatWinner
+  Session.set 'landResults', tempArray
+  Session.set 'landStatus', false
+
+@getLandCasualties = (combatants) ->
+  lk = 0.05
+  strengthArray = getStrengthArray combatants
+
+  # calculates number of kills
+  killsArray = []
+  i = 0
+  strengthArray.forEach (strength) ->
+    j = 0
+    kills = 0
+    while j < strength
+      x = Math.random()
+      if x < lk
+        kills++
+      j++
+    killsArray[i] = kills
     i++
 
-  # Session.set 'landResults', tempArray
-  # Session.set 'landStatus', false
+  # Converts kills into casualties TODO only works with two combatants
+  casualtyArray = killsArray.reverse()
+
+  unitsArray = [] # populates array of unit types
+  combatants.forEach (c) ->
+    xArray = []
+    xArray.push unitCount("Air", c.air)
+    xArray.push unitCount('Supplied Armor', c.sArm)
+    xArray.push unitCount('Supplied Infantry', c.sInf)
+    xArray.push unitCount('Supplied Res. Infantry', c.sResInf)
+    xArray.push unitCount('Unsupplied Armor', c.uArm)
+    xArray.push unitCount('Unsupplied Infantry', c.uInf)
+    xArray.push unitCount('Unsupplied Res. Infantry', c.uResInf)
+    xArray.push unitCount('Rocket', c.rockets)
+    unitsArray.push _.flatten(xArray)
+
+  # shuffle and show losses
+  i = 0
+  lossesArray = []
+  unitsArray.forEach (army) ->
+    newArmy = _.shuffle(army)
+    deaths = casualtyArray[i]
+    casualties = newArmy.slice(0,deaths)
+    lossesArray.push casualties
+    i++
+  lossesArray
+
+@unitCount = (type ,c) ->
+  i = 0
+  tempArray = []
+  while i < c
+    tempArray.push type
+    i++
+  tempArray
