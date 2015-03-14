@@ -7,7 +7,6 @@ Template._seaCombat.helpers
   seaCombatants: -> SeaCombat.find()
 
   preSeaCombat: -> Session.get 'seaStatus'
-
   seaResults: -> Session.get 'seaResults'
   seaWinner: -> Session.get 'seaWinner'
 
@@ -95,7 +94,7 @@ Template._seaCombat.events
   combatants.forEach (c) ->
     combatantStrength = 0
 
-    totalStrength += 0 # +c.air
+    totalStrength += +c.air
     totalStrength += +c.sLtFleets * 3
     totalStrength += +c.uLtFleets
     totalStrength += +c.sHvFleets * 6
@@ -103,7 +102,7 @@ Template._seaCombat.events
     totalStrength += +c.sSubs
     totalStrength += +c.uSubs
 
-    combatantStrength += 0 # +c.air
+    combatantStrength += +c.air
     combatantStrength += +c.sLtFleets * 3
     combatantStrength += +c.uLtFleets
     combatantStrength += +c.sHvFleets * 6
@@ -123,7 +122,7 @@ Template._seaCombat.events
   strengthArray = []
   combatants.forEach (c) ->
     combatantStrength = 0
-    combatantStrength += 0 # TODO +c.air
+    combatantStrength += +c.air
     combatantStrength += +c.sLtFleets * 3
     combatantStrength += +c.uLtFleets
     combatantStrength += +c.sHvFleets * 6
@@ -151,13 +150,13 @@ Template._seaCombat.events
   unitsArray = []
   combatants.forEach (c) ->
     xArray = []
-    xArray.push unitCount("Air", c.air)
     xArray.push unitCount("Supplied Submarines", c.sSubs)
     xArray.push unitCount("Unsupplied Submarines", c.uSubs)
     xArray.push unitCount("Supplied Lt. Fleets", c.sLtFleets)
     xArray.push unitCount("Unsupplied Lt. Fleets", c.uLtFleets)
     xArray.push unitCount("Supplied Hv. Fleets", c.sHvFleets)
     xArray.push unitCount("Unsupplied Hv. Fleets", c.uHvFleets)
+    xArray.push getAA(c.air)
     unitsArray.push _.flatten(xArray)
 
   #shuffle and show losses

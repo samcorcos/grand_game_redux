@@ -35,3 +35,30 @@ Template.combat.helpers
     if x < array[i]
       res = i
   res
+
+@getAA = (c) ->
+  aa = 0.01
+  i = 0
+  lossArray = []
+  while i < c
+    x = Math.random()
+    if x < aa
+      lossArray.push "Air"
+    i++
+  lossArray
+
+
+      #
+      #
+      # i = 0
+      # strengthArray.forEach (strength) ->
+      #   j = 0
+      #   kills = 0
+      #   while j < strength
+      #     x = Math.random()
+      #     if x < sk
+      #       kills++
+      #     j++
+      #   killsArray[i] = kills
+      #   i++
+      #

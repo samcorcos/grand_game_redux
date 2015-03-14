@@ -395,7 +395,6 @@ Template._landCombat.events
   unitsArray = [] # populates array of unit types
   combatants.forEach (c) ->
     xArray = []
-    xArray.push unitCount("Air", c.air)
     xArray.push unitCount('Supplied Armor', c.sArm)
     xArray.push unitCount('Supplied Infantry', c.sInf)
     xArray.push unitCount('Supplied Res. Infantry', c.sResInf)
@@ -403,6 +402,7 @@ Template._landCombat.events
     xArray.push unitCount('Unsupplied Infantry', c.uInf)
     xArray.push unitCount('Unsupplied Res. Infantry', c.uResInf)
     xArray.push unitCount('Rocket', c.rockets)
+    xArray.push getAA(c.air)
     unitsArray.push _.flatten(xArray)
 
   # shuffle and show losses
