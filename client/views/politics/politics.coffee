@@ -9,7 +9,7 @@ Template.politics.events
     Meteor.setTimeout ->
       Session.set 'loading', false
       Session.set 'rolled', true
-      Session.set 'roll', Math.floor(Math.random() * 5) + 1
+      Session.set 'roll', "0." + Math.floor(Math.random() * 100) + 1
     , 1000
 
 Template.politics.helpers
