@@ -76,23 +76,19 @@ Template._seaCombat.events
 @calculateSea = ->
   combatants = SeaCombat.find().fetch()
   winArray = getSeaWinArray combatants
+  winnerIndex = getWinnerIndex winArray
+  winnerName = combatants[winnerIndex].name
+  Session.set 'seaWinner', winnerName
   console.log winArray
-
-
-  # combatants = AirCombat.find().fetch()
-  # winArray = getAirWinArray combatants
-  # winnerIndex = getWinnerIndex winArray
-  # winnerName = combatants[winnerIndex].name
-  # casualties = getAirCasualties combatants
-  # # superiority = getAirSuperiority combatants, casualties
-  # tempArray = []
-  # i = 0
-  # combatants.forEach (combatant) ->
-  #   combatant.casualties = casualties[i]
-  #   tempArray.push combatant
-  #   i++
-  # Session.set 'airResults', tempArray
-  # Session.set 'airStatus', false
+  casualties = getSeaCasualties combatants
+  tempArray = []
+  i = 0
+  combatants.forEach (c) ->
+    c.casualties = casualties[i]
+    tempArray.push c
+    i++
+  Session.set 'seaResults', tempArray
+  Session.set 'seaStatus', false
 
 @getSeaWinArray = (combatants) ->
   strengthArray = []
@@ -122,3 +118,63 @@ Template._seaCombat.events
   strengthArray.forEach (item) ->
     scaledArray.push(item/totalStrength)
   scaledArray
+
+@getSeaCasualties = (combatants) ->
+  sk = 0.2
+  strengthArray = []
+  combatants.forEach (c) ->
+    combatantStrength = 0
+    combatantStrength += 0 # TODO +c.air
+    combatantStrength += +c.sLtFleets * 3
+    combatantStrength += +c.uLtFleets
+    combatantStrength += +c.sHvFleets * 6
+    combatantStrength += +c.uHvFleets
+    combatantStrength += +c.sSubs
+    combatantStrength += +c.uSubs
+    strengthArray.push combatantStrength
+
+  #calculates number of kills
+  killsArray = []
+  i = 0
+  strengthArray.forEach (strength) ->
+    j = 0
+    kills = 0
+    while j < strength
+      x = Math.random()
+      if x < sk
+        kills++
+      j++
+    killsArray[i] = kills
+    i++
+
+  casualtyArray = killsArray.reverse()
+
+  
+
+#
+#   # Converts kills into casualties TODO only works with two combatants
+#   casualtyArray = killsArray.reverse()
+#
+#   unitsArray = [] # populates array of unit types
+#   combatants.forEach (c) ->
+#     xArray = []
+#     xArray.push unitCount("Air", c.air)
+#     xArray.push unitCount('Supplied Armor', c.sArm)
+#     xArray.push unitCount('Supplied Infantry', c.sInf)
+#     xArray.push unitCount('Supplied Res. Infantry', c.sResInf)
+#     xArray.push unitCount('Unsupplied Armor', c.uArm)
+#     xArray.push unitCount('Unsupplied Infantry', c.uInf)
+#     xArray.push unitCount('Unsupplied Res. Infantry', c.uResInf)
+#     xArray.push unitCount('Rocket', c.rockets)
+#     unitsArray.push _.flatten(xArray)
+#
+#   # shuffle and show losses
+#   i = 0
+#   lossesArray = []
+#   unitsArray.forEach (army) ->
+#     newArmy = _.shuffle(army)
+#     deaths = casualtyArray[i]
+#     casualties = newArmy.slice(0,deaths)
+#     lossesArray.push casualties
+#     i++
+#   lossesArray
