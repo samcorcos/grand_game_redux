@@ -177,3 +177,15 @@ background-color: lighten($blue, 10%);
   opacity:1;
   transition-delay:0s;
 }
+
+.modifiers {
+  display: inline-block;
+}
+
+.checkbox-label {
+  padding-right: 1.5rem;
+}
+
+.land-modifiers {
+  color: #959595;
+}

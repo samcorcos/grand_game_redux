@@ -20,7 +20,6 @@
         <div class="card-content">
           <form>
             <input type="text" placeholder="name">
-            <input type="number" placeholder="Alliance Number">
             <h3 class="center-align">Units</h3>
             <div class="col s12">
               <input type="number" placeholder="# Aircraft">
@@ -46,13 +45,68 @@
             <div class="col s12">
               <input type="number" placeholder="Rockets">
             </div>
-            <div class="col s12">
-              <input type="checkbox"> Modifier
-              <input type="checkbox"> Modifier
-              <input type="checkbox"> Modifier
-              <input type="checkbox"> Modifier
-              <input type="checkbox"> Modifier
-              <input type="checkbox"> Modifier
+            <div class="col s10 left-align">
+              <input type="checkbox" id="{{_id}}-pen1">
+              <label class="checkbox-label" for="{{_id}}-pen1">Amphibious Assault Penalty</label>
+            </div>
+            <div class="col s2 right-align">
+              <span class="land-modifiers">(-1)</span>
+            </div>
+            <div class="col s10 left-align">
+              <input type="checkbox" id="{{_id}}-pen2">
+              <label class="checkbox-label" for="{{_id}}-pen2">River/Canal Crossing</label>
+            </div>
+            <div class="col s2 right-align">
+              <span class="land-modifiers">(-1)</span>
+            </div>
+            <div class="col s10 left-align">
+              <input type="checkbox" id="{{_id}}-md">
+              <label class="checkbox-label" for="{{_id}}-md">Mountain Defense</label>
+            </div>
+            <div class="col s2 right-align">
+              <span class="land-modifiers">(+10%)</span>
+            </div>
+            <div class="col s10 left-align">
+              <input type="checkbox" id="{{_id}}-cd">
+              <label class="checkbox-label" for="{{_id}}-cd">City/Port Defense</label>
+            </div>
+            <div class="col s2 right-align">
+              <span class="land-modifiers">(+10%)</span>
+            </div>
+            <div class="col s10 left-align">
+              <input type="checkbox" id="{{_id}}-bz">
+              <label class="checkbox-label" for="{{_id}}-bz">Blitz (Success)</label>
+            </div>
+            <div class="col s2 right-align">
+              <span class="land-modifiers">(x2)</span>
+            </div>
+            <div class="col s10 left-align">
+              <input type="checkbox" id="{{_id}}-bd">
+              <label class="checkbox-label" for="{{_id}}-bd">Blitz (Failure)</label>
+            </div>
+            <div class="col s2 right-align">
+              <span class="land-modifiers">(+25%)</span>
+            </div>
+            <div class="col s10 left-align">
+              <input type="checkbox" id="{{_id}}-hd">
+              <label class="checkbox-label" for="{{_id}}-hd">Hold Order</label>
+            </div>
+            <div class="col s2 right-align">
+              <span class="land-modifiers">(+25%)</span>
+            </div>
+            <div class="col s10 left-align">
+              <input type="checkbox" id="{{_id}}-atmb">
+              <label class="checkbox-label" for="{{_id}}-atmb">Atomic Bomb (Tactical)</label>
+            </div>
+            <div class="col s2 right-align">
+              <span class="land-modifiers">(+12)</span>
+            </div>
+            <div class="col s10 left-align">
+              <input type="checkbox" id="{{_id}}-wd">
+              <label class="checkbox-label" for="{{_id}}-wd">Winter Defense</label>
+            </div>
+            <div class="col s2 right-align">
+              <span class="land-modifiers">(+5%)</span>
             </div>
             <div class="col s12">
               <input type="number" placeholder="Change Base Points">
@@ -86,12 +140,11 @@
 <template name="_seaCombat">
   <div class="row">
     {{#each seaCombatants}}
-      <div class="col s12 m4">
+      <div class="col s12 m6">
         <div class="card">
           <div class="card-content">
             <form>
               <input type="text" placeholder="Name">
-              <input type="number" placeholder="Alliance Number">
               <h3 class="center-align">Units</h3>
               <div class="row">
                 <div class="col s12">
@@ -143,7 +196,7 @@
   <div class="row">
     {{#if preAirCombat}}
       {{#each airCombatants}}
-        <div class="col s12 m4">
+        <div class="col s12 m6">
           <div class="card">
             <div class="card-content">
               <form>
@@ -156,7 +209,7 @@
       {{/each}}
     {{else}}
       {{#each airResults}}
-        <div class="col s12 m4">
+        <div class="col s12 m6">
           <div class="card">
             <div class="card-content">
               <p>Combatant: {{name}}</p>
