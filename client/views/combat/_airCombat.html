@@ -1,0 +1,36 @@
+
+<template name="_airCombat">
+  <div class="row">
+    {{#if preAirCombat}}
+      {{#each airCombatants}}
+        <div class="col s12 m6">
+          <div class="card">
+            <div class="card-content">
+              <form>
+                <input type="text" placeholder="Name" id="name">
+                <input type="number" placeholder="Number of Planes" id="planes">
+              </form>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    {{else}}
+      {{#each airResults}}
+        <div class="col s12 m6">
+          <div class="card">
+            <div class="card-content">
+              <p>Combatant: {{name}}</p>
+              <p>Casualties: {{casualties}}</p>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    {{/if}}
+  </div>
+<!--   <div class="left-align">
+  <button class="btn" id="add-air">+ Add Combatant</button>
+</div> -->
+  <div class="right-align">
+    <button class="btn" id="submit-air">Submit Air Combat</button>
+  </div>
+</template>

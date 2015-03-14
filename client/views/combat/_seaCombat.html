@@ -1,0 +1,62 @@
+<template name="_seaCombat">
+  <div class="row">
+    {{#if preSeaCombat}}
+      {{#each seaCombatants}}
+        <div class="col s12 m6">
+          <div class="card">
+            <div class="card-content">
+              <form>
+                <input type="text" placeholder="Name">
+                <h3 class="center-align">Units</h3>
+                <div class="row">
+                  <div class="col s12">
+                    <input type="number" placeholder="# Aircraft">
+                  </div>
+                  <div class="col s6">
+                    <input type="number" placeholder="# Submarines">
+                  </div>
+                  <div class="col s6">
+                    <input type="number" placeholder="Unsupplied">
+                  </div>
+                  <div class="col s6">
+                    <input type="number" placeholder="# Lt. Fleets">
+                  </div>
+                  <div class="col s6">
+                    <input type="number" placeholder="Unsupplied">
+                  </div>
+                  <div class="col s6">
+                    <input type="number" placeholder="# Hv. Fleets">
+                  </div>
+                  <div class="col s6">
+                    <input type="number" placeholder="Unsupplied">
+                  </div>
+                </div>
+                <p><input type="checkbox"> Search</p>
+              </form>
+              <h3 class="center-align">Casualties</h3>
+              <div>
+                Aircraft _________
+              </div>
+              <div>
+                Submarines _________
+              </div>
+              <div>
+                Lt. Fleets _________
+              </div>
+              <div>
+                Hv. Fleets _________
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    {{else}}
+      {{#each seaResult}}
+
+      {{/each}}
+    {{/if}}
+  </div>
+  <div class="right-align">
+    <button class="btn" id="submit-sea">Submit Sea Combat</button>
+  </div>
+</template>
