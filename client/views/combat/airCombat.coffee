@@ -2,7 +2,6 @@ Template._airCombat.rendered = ->
   AirCombat.remove {}
   AirCombat.insert {}
   AirCombat.insert {}
-  Session.set 'airStatus', false
 
 Template._airCombat.helpers
   airCombatants: ->
@@ -42,9 +41,20 @@ Template._airCombat.events
     e.preventDefault()
     calculateAir()
 
+@getAirWinArray = (combatants) ->
+  strengthArray = []
+  totalStrength = 0
+  combatants.forEach (combatant) ->
+    totalStrength += +combatant.planes
+    strengthArray.push +combatant.planes
+  scaledArray = []
+  strengthArray.forEach (item) ->
+    scaledArray.push(item/totalStrength)
+  scaledArray
+
 @calculateAir = ->
   combatants = AirCombat.find().fetch()
-  winArray = getWinArray combatants
+  winArray = getAirWinArray combatants
   winnerIndex = getWinnerIndex winArray
   winnerName = combatants[winnerIndex].name
   casualties = getAirCasualties combatants
@@ -57,8 +67,6 @@ Template._airCombat.events
     i++
   Session.set 'airResults', tempArray
   Session.set 'airStatus', false
-
-
 
 @getAirCasualties = (combatants) ->
   ak = 0.5
@@ -92,24 +100,3 @@ Template._airCombat.events
       casualtyArray[i] = strengthArray[i]
     i++
   casualtyArray
-
-# @getAirSuperiority = (combatants, casualties) ->
-#   strengthArray = []
-#
-#   # Gets the total combat strength of all parties
-#   combatants.forEach (combatant) ->
-#     strengthArray.push +combatant.planes
-#
-#   i = 0
-#   # Takes the strength and subtracts the number of casualties
-#   casualties.forEach (casualty) ->
-#     strengthArray[i] = strengthArray[i] - casualty
-#     i++
-#
-  # res = undefined
-  # # Find the largest and subtract the smallest TODO this only works for two combatants
-  # if strengthArray[0] == strengthArray[1]
-  #   res = 0
-  # else
-  #   max = strengthArray.indexOf(Math.max.apply(Math, arr))
-  #

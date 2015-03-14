@@ -2,7 +2,6 @@ Template._landCombat.rendered = ->
   LandCombat.remove {}
   LandCombat.insert {}
   LandCombat.insert {}
-  Session.set 'landStatus', true
 
 Template._landCombat.helpers
   landCombatants: ->
@@ -12,6 +11,11 @@ Template._landCombat.helpers
   landResult: -> Session.get 'landResult'
 
 Template._landCombat.events
+  'click #submit-land': (e,t) ->
+    e.preventDefault()
+    calculateLand()
+
+
   'keyup #name': (e,t) ->
     LandCombat.update
       _id: @_id
@@ -200,3 +204,46 @@ Template._landCombat.events
       ,
         $set:
           wd: false
+
+  'keyup #base-change': (e,t) ->
+    LandCombat.update
+      _id: @_id
+    ,
+      $set:
+        base: e.target.value
+
+@getLandWinArray = (combatants) ->
+  strengthArray = []
+  totalStrength = 0
+  combatants.forEach (combatant) ->
+    combatantStrength = 0
+
+    totalStrength += +combatant.air
+    totalStrength += +combatant.rockets
+    totalStrength += +combatant.sArm
+    totalStrength += +combatant.sInf
+    totalStrength += +combatant.sResInf
+    totalStrength += +combatant.uArm
+    totalStrength += +combatant.uInf
+    totalStrength += +combatant.uResInf
+
+    combatantStrength += +combatant.air
+    combatantStrength += +combatant.rockets
+    combatantStrength += +combatant.sArm
+    combatantStrength += +combatant.sInf
+    combatantStrength += +combatant.sResInf
+    combatantStrength += +combatant.uArm
+    combatantStrength += +combatant.uInf
+    combatantStrength += +combatant.uResInf
+
+    strengthArray.push combatantStrength
+
+  scaledArray = []
+  strengthArray.forEach (item) ->
+    scaledArray.push(item/totalStrength)
+  scaledArray
+
+@calculateLand = ->
+  combatants = LandCombat.find().fetch()
+  winArray = getLandWinArray combatants
+  console.log winArray

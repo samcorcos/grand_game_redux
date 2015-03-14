@@ -35,14 +35,3 @@ Template.combat.helpers
     if x < array[i]
       res = i
   res
-
-@getWinArray = (combatants) ->
-  strengthArray = []
-  totalStrength = 0
-  combatants.forEach (combatant) ->
-    totalStrength += +combatant.planes
-    strengthArray.push +combatant.planes
-  scaledArray = []
-  strengthArray.forEach (item) ->
-    scaledArray.push(item/totalStrength)
-  scaledArray
