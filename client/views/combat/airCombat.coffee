@@ -1,7 +1,9 @@
 Template._airCombat.rendered = ->
   AirCombat.remove {}
-  AirCombat.insert {}
-  AirCombat.insert {}
+  AirCombat.insert
+    planes: 0
+  AirCombat.insert
+    planes: 0
 
 Template._airCombat.helpers
   airCombatants: ->
@@ -17,13 +19,6 @@ Template._airCombat.events
     ,
       $set:
         name: e.target.value
-
-  'keyup #alliance': (e,t) ->
-    AirCombat.update
-      _id: @_id
-    ,
-      $set:
-        alliance: e.target.value
 
   'keyup #planes': (e,t) ->
     AirCombat.update

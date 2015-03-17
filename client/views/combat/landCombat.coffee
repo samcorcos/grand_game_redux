@@ -375,6 +375,7 @@ Template._landCombat.events
 @getLandCasualties = (combatants) ->
   lk = 0.05
   strengthArray = getStrengthArray combatants
+  console.log strengthArray
 
   # calculates number of kills
   killsArray = []

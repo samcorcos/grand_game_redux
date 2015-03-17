@@ -101,7 +101,7 @@ background-color: lighten($blue, 10%);
 /////////////////////////
 
 .scotland-background {
-  height: 84vh;
+  min-height: 84vh;
   width: 100%;
   background: url(/scotland.jpg) no-repeat center center;
   -webkit-background-size: cover;
