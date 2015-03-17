@@ -1,13 +1,13 @@
 <template name="combat">
 <div class="container">
   <ul class="tabs" style="margin-top:2rem;">
-    <li class="tab col s4" id="land-tab"><a href="#land">Land</a></li>
-    <li class="tab col s4" id="sea-tab"><a href="#sea">Sea</a></li>
-    <li class="tab col s4" id="air-tab"><a href="#air">Air</a></li>
+    <li class="tab col s4" id="land-tab"><a href="#land-template">Land</a></li>
+    <li class="tab col s4" id="sea-tab"><a href="#sea-template">Sea</a></li>
+    <li class="tab col s4" id="air-tab"><a href="#air-template">Air</a></li>
   </ul>
-  <div id="land">{{> _landCombat}}</div>
-  <div id="sea">{{> _seaCombat}}</div>
-  <div id="air">{{> _airCombat}}</div>
+  <div id="land-template">{{> _landCombat}}</div>
+  <div id="sea-template">{{> _seaCombat}}</div>
+  <div id="air-template">{{> _airCombat}}</div>
 
 </div>
 </template>

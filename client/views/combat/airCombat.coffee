@@ -5,6 +5,8 @@ Template._airCombat.rendered = ->
   AirCombat.insert
     planes: 0
 
+  Session.set "airStatus", true
+
 Template._airCombat.helpers
   airCombatants: ->
     AirCombat.find()

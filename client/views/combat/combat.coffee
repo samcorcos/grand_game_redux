@@ -31,6 +31,7 @@ Template.combat.helpers
 @getWinnerIndex = (array) ->
   x = Math.random()
   res = 0
+  array.forEach
   for v,i in array
     if x < array[i]
       res = i
@@ -46,19 +47,3 @@ Template.combat.helpers
       lossArray.push "Air"
     i++
   lossArray
-
-
-      #
-      #
-      # i = 0
-      # strengthArray.forEach (strength) ->
-      #   j = 0
-      #   kills = 0
-      #   while j < strength
-      #     x = Math.random()
-      #     if x < sk
-      #       kills++
-      #     j++
-      #   killsArray[i] = kills
-      #   i++
-      #

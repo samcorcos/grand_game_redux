@@ -1,7 +1,20 @@
 Template._landCombat.rendered = ->
   LandCombat.remove {}
-  LandCombat.insert {}
-  LandCombat.insert {}
+  LandCombat.insert
+    air: 0
+    sResInf: 0
+    sInf: 0
+    sArm: 0
+    rockets: 0
+  LandCombat.insert
+    air: 0
+    sResInf: 0
+    sInf: 0
+    sArm: 0
+    rockets: 0
+
+  Session.set "landStatus", true
+
 
 Template._landCombat.helpers
   landCombatants: -> LandCombat.find()
@@ -37,13 +50,6 @@ Template._landCombat.events
       $set:
         sResInf: e.target.value
 
-  'keyup #u-res-inf': (e,t) ->
-    LandCombat.update
-      _id: @_id
-    ,
-      $set:
-        uResInf: e.target.value
-
   'keyup #s-inf': (e,t) ->
     LandCombat.update
       _id: @_id
@@ -51,26 +57,12 @@ Template._landCombat.events
       $set:
         sInf: e.target.value
 
-  'keyup #u-inf': (e,t) ->
-    LandCombat.update
-      _id: @_id
-    ,
-      $set:
-        uInf: e.target.value
-
   'keyup #s-arm': (e,t) ->
     LandCombat.update
       _id: @_id
     ,
       $set:
         sArm: e.target.value
-
-  'keyup #u-arm': (e,t) ->
-    LandCombat.update
-      _id: @_id
-    ,
-      $set:
-        uArm: e.target.value
 
   'keyup #rockets': (e,t) ->
     LandCombat.update
@@ -241,13 +233,12 @@ Template._landCombat.events
         base: e.target.value
 
 @getArmor = (c) ->
-  numArm = +c.sArm
   result = undefined
   if c.o
     armStrength = 6
     if c.pen1 then armStrength--
     if c.pen2 then armStrength--
-    grossStrength = numArm * armStrength
+    grossStrength = +c.sArm * armStrength
     if c.bz then grossStrength *= 2
     if c.bd then grossStrength *= 1.25
     if c.atmb then grossStrength += 12
@@ -256,7 +247,7 @@ Template._landCombat.events
     armStrength = 6
     if c.pen1 then armStrength--
     if c.pen2 then armStrength--
-    grossStrength = numArm * armStrength
+    grossStrength = +c.sArm * armStrength
     if c.md then grossStrength *= 1.1
     if c.cd then grossStrength *= 1.1
     if c.wd then grossStrength *= 1.05
@@ -316,9 +307,6 @@ Template._landCombat.events
     combatantStrength += getArmor(c)
     combatantStrength += getInfantry(c)
     combatantStrength += getResInfantry(c)
-    combatantStrength += +c.uArm
-    combatantStrength += +c.uInf
-    combatantStrength += +c.uResInf
 
     strengthArray.push combatantStrength
   strengthArray
@@ -334,18 +322,12 @@ Template._landCombat.events
     totalStrength += getArmor(c)
     totalStrength += getInfantry(c)
     totalStrength += getResInfantry(c)
-    totalStrength += +c.uArm # TODO do unsupplied units get bonuses?
-    totalStrength += +c.uInf # TODO can a unit have less than 1 attack or defense? Negative?
-    totalStrength += +c.uResInf
 
 
     combatantStrength += +c.air       # TODO what is "1/sup. pt."
     combatantStrength += getArmor(c)
     combatantStrength += getInfantry(c)
     combatantStrength += getResInfantry(c)
-    combatantStrength += +c.uArm
-    combatantStrength += +c.uInf
-    combatantStrength += +c.uResInf
 
     strengthArray.push combatantStrength
 
@@ -400,9 +382,6 @@ Template._landCombat.events
     xArray.push unitCount('Supplied Armor', c.sArm)
     xArray.push unitCount('Supplied Infantry', c.sInf)
     xArray.push unitCount('Supplied Res. Infantry', c.sResInf)
-    xArray.push unitCount('Unsupplied Armor', c.uArm)
-    xArray.push unitCount('Unsupplied Infantry', c.uInf)
-    xArray.push unitCount('Unsupplied Res. Infantry', c.uResInf)
     xArray.push unitCount('Rocket', c.rockets)
     xArray.push getAA(c.air)
     unitsArray.push _.flatten(xArray)
